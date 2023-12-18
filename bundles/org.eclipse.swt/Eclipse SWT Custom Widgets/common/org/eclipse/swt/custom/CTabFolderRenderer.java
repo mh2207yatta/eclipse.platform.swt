@@ -294,6 +294,10 @@ public class CTabFolderRenderer {
 							height = Math.max(height, computeSize(i, SWT.NONE, gc, wHint, hHint).y);
 						}
 					}
+					// Check if additional TopRight Control exceeds header height
+					if(parent.topRight != null) {
+						height = parent.topRight.computeSize(wHint, hHint, true).y + ITEM_TOP_MARGIN + ITEM_BOTTOM_MARGIN;
+					}
 					gc.dispose();
 				}
 				break;
