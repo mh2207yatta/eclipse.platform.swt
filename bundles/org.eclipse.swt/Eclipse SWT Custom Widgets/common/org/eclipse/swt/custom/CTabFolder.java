@@ -575,7 +575,8 @@ Rectangle[] computeControlBounds (Point size, boolean[][] position) {
 				rects[i].y = getControlY(size, rects, borderBottom, borderTop, i);
 				if ((alignment & (SWT.FILL | SWT.WRAP)) != 0) availableWidth -= ctrlSize.x;
 			}
-			if (tabControlSize[i].y >= tabHeight && fixedTabHeight == SWT.DEFAULT) {
+			// In order to draw a line at the tab bottom, one additional pixel of space is required
+			if (tabControlSize[i].y + CTabFolderRenderer.TAB_HEADER_LINE_WIDTH > tabHeight && fixedTabHeight == SWT.DEFAULT) {
 				overflow[i] = true;
 			}
 		}

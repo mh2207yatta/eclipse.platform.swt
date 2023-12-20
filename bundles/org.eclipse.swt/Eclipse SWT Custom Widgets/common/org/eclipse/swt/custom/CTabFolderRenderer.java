@@ -98,6 +98,7 @@ public class CTabFolderRenderer {
 	static final int ITEM_LEFT_MARGIN = 4;
 	static final int ITEM_RIGHT_MARGIN = 4;
 	static final int INTERNAL_SPACING = 4;
+	static final int TAB_HEADER_LINE_WIDTH = 1; // CTab Folder draws a line at its bottom, that is 1px wide
 	static final int FLAGS = SWT.DRAW_TRANSPARENT | SWT.DRAW_MNEMONIC | SWT.DRAW_DELIMITER;
 	static final String ELLIPSIS = "..."; //$NON-NLS-1$
 	private static final String CHEVRON_ELLIPSIS = "99+"; //$NON-NLS-1$
@@ -294,9 +295,13 @@ public class CTabFolderRenderer {
 							height = Math.max(height, computeSize(i, SWT.NONE, gc, wHint, hHint).y);
 						}
 					}
-					// Check if additional TopRight Control exceeds header height
+					// Check if additional TopRight Control or MinMaxToolbar exceeds header height (Should this be accounted for or is this by design?)
 					if(parent.topRight != null) {
-						height = parent.topRight.computeSize(wHint, hHint, true).y + ITEM_TOP_MARGIN + ITEM_BOTTOM_MARGIN;
+						// +1 for line drawn across top of tab
+						height = Math.max(height, parent.topRight.computeSize(wHint, hHint).y + parent.topRight.getBorderWidth() + TAB_HEADER_LINE_WIDTH);
+					}
+					if(parent.minMaxTb != null) {
+						height = Math.max(height, parent.minMaxTb.computeSize(wHint, hHint).y + parent.minMaxTb.getBorderWidth() + TAB_HEADER_LINE_WIDTH);
 					}
 					gc.dispose();
 				}
